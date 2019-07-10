@@ -43,15 +43,17 @@ app.get('/', (req, res) => {
   const userId = req.query.userId || util.getRandomUser();
   let isPartOfCampaign;
 
-  let variation = vwoClientInstance.activate(campaignTestKey, userId);
+  if (vwoClientInstance) {
+    let variation = vwoClientInstance.activate(campaignTestKey, userId);
 
-  if (variation) {
-    isPartOfCampaign = true;
-  } else {
-    isPartOfCampaign = false;
+    if (variation) {
+      isPartOfCampaign = true;
+    } else {
+      isPartOfCampaign = false;
+    }
+
+    vwoClientInstance.track(campaignTestKey, userId, goalIdentifeir);
   }
-
-  vwoClientInstance.track(campaignTestKey, userId, goalIdentifeir);
 
   res.render('index', {
     title: `VWO | Node-sdk example | ${variation}`,
