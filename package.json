@@ -1,7 +1,7 @@
 {
   "name": "vwo-node-sdk-example",
-  "version": "1.0.0",
-  "description": "VWO Node SDK example",
+  "version": "0.1.0-aplha-7",
+  "description": "VWO NodeJs SDK example",
   "main": "index.js",
   "scripts": {
     "dev-app": "nodemon --inspect=0.0.0.0:9229 --legacy-watch --ignore node_modules index.js",
@@ -32,6 +32,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.3",
+    "nodemon": "^1.19.1",
     "prettier": "^1.16.4"
   },
   "husky": {
