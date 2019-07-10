@@ -20,9 +20,13 @@ Refer [VWO Official Server-side Documentation](https://developers.vwo.com/refere
 yarn install
 ```
 
-2. Update your app with your accountId, sdk-key, campaign test key and goal-identifier
+2. Update your app with your accountId, sdk-key, campaign-test-key and goal-identifier inside `config.js`
 
-```
+```js
+const campaignTestKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const goalIdentifeir = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const accountId = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const sdkKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
 
 ```
 
