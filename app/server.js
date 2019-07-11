@@ -17,7 +17,7 @@ const {
 
 let currentSettingsFile = {};
 let vwoClientInstance;
-const pollTime = 1000;
+const pollTime = 10000;
 
 function pollSettingsFile() {
   vwoHelper
