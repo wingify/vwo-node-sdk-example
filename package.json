@@ -19,7 +19,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.17.1",
-    "vwo-node-sdk": "^0.1.0-alpha.7"
+    "vwo-node-sdk": "^0.1.0-alpha.9"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
