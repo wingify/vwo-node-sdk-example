@@ -1,6 +1,6 @@
 {
   "name": "vwo-node-sdk-example",
-  "version": "0.1.0-aplha-7",
+  "version": "1.0.1",
   "description": "VWO NodeJs SDK example",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.17.1",
-    "vwo-node-sdk": "^0.1.0-alpha.9"
+    "vwo-node-sdk": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

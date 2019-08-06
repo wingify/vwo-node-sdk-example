@@ -1988,6 +1988,11 @@ locate-path@^3.0.0:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+
 lodash@^4.17.11, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
@@ -3450,12 +3455,13 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vwo-node-sdk@^0.1.0-alpha.7:
-  version "0.1.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-0.1.0-alpha.7.tgz#44807747d45dcdb7e9a0856005aa8ad5c6baa04a"
-  integrity sha512-ocPX/mbwcv1Tv8UWm5qRGulyLS4Y3ZeT30abzo4U2ijz+BYELtVgHHl8Cg+92CVRXnkpxicxtZluR72CWoF0/w==
+vwo-node-sdk@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-1.0.1.tgz#9b5256903e7a4c1821b8c01e2e470abbfe731ee1"
+  integrity sha512-g+D6QEbE0saI5Z3DU1pgOZxn/V1IrxHK02smG5y1VLoZO06qMiN0q4S2KkqdZkVM8ABJObAWgcvh1vCR6R4kTw==
   dependencies:
     ajv "^6.10.0"
+    lodash.clonedeep "^4.5.0"
     murmurhash "^0.0.2"
     uuid "^3.3.2"
 
