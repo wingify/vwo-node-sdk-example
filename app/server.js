@@ -11,8 +11,10 @@ app.set('views', './app/views');
 const {
   accountId,
   sdkKey,
-  campaignTestKey,
-  goalIdentifeir
+  abcampaignKey,
+  abCampaigngoalIdentifier,
+  featureRolloutCampaignKey,
+  featureTestCampaignKey
 } = require('./config');
 
 let currentSettingsFile = {};
@@ -39,29 +41,125 @@ function pollSettingsFile() {
 pollSettingsFile();
 setInterval(pollSettingsFile, pollTime);
 
-app.get('/', (req, res) => {
-  const userId = req.query.userId || util.getRandomUser();
-  let isPartOfCampaign;
+app.get('/feature-rollout', (req, res) => {
+  const campaignKey = featureRolloutCampaignKey;
+  let userId = req.query.userId || util.getRandomUser();
+
+  let isEnabled;
+  let featureVariables = [];
 
   if (vwoClientInstance) {
-    let variation = vwoClientInstance.activate(campaignTestKey, userId);
+    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId);
+    let strValue, intValue, boolValue, dubValue;
 
-    if (variation) {
+    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId);
+    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId);
+    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId);
+    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId);
+
+    featureVariables = [
+      {
+        key: 'str',
+        value: strValue
+      },
+      {
+        key: 'int',
+        value: intValue
+      },
+      {
+        key: 'bool',
+        value: boolValue
+      },
+      {
+        key: 'dub',
+        value: dubValue
+      }
+    ];
+  }
+
+  res.render('feature-rollout', {
+    title: `VWO | Node-sdk example`,
+    userId,
+    isEnabled,
+    campaignKey,
+    featureVariables,
+    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
+  });
+});
+
+app.get('/feature-test', (req, res) => {
+  const campaignKey = featureTestCampaignKey;
+  let userId = req.query.userId || util.getRandomUser();
+  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId);
+
+  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId);
+  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId);
+  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId);
+  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId);
+  const featureVariables = [
+    {
+      key: 'str',
+      value: strValue
+    },
+    {
+      key: 'int',
+      value: intValue
+    },
+    {
+      key: 'bool',
+      value: boolValue
+    },
+    {
+      key: 'dub',
+      value: dubValue
+    }
+  ];
+
+  res.render('feature-test', {
+    title: `VWO | Node-sdk example`,
+    userId,
+    isEnabled,
+    campaignKey,
+    featureVariables,
+    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
+  });
+});
+
+// curl "http://127.0.0.1:3000/ab?userId="
+app.get('/ab', (req, res) => {
+  let campaignKey = abcampaignKey;
+  let variationName;
+  let userId;
+  let isPartOfCampaign;
+
+  userId = req.query.userId || util.getRandomUser();
+
+  if (vwoClientInstance) {
+    variationName = vwoClientInstance.activate(campaignKey, userId);
+
+    if (variationName) {
       isPartOfCampaign = true;
     } else {
       isPartOfCampaign = false;
     }
 
-    vwoClientInstance.track(campaignTestKey, userId, goalIdentifeir);
+    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier);
   }
 
-  res.render('index', {
-    title: `VWO | Node-sdk example | ${variation}`,
+  res.render('ab', {
+    title: `VWO | Node-sdk example | ${variationName}`,
     userId,
     isPartOfCampaign,
-    variation,
-    campaignTestKey,
-    goalIdentifeir,
+    variationName,
+    campaignKey,
+    abCampaigngoalIdentifier,
+    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
+  });
+});
+
+app.get('/', (_req, res) => {
+  res.render('index', {
+    title: `VWO | Node-sdk example`,
     currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
   });
 });

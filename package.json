@@ -1,12 +1,13 @@
 {
   "name": "vwo-node-sdk-example",
-  "version": "1.0.1",
+  "version": "1.4.2",
   "description": "VWO NodeJs SDK example",
   "main": "index.js",
   "scripts": {
     "dev-app": "nodemon --inspect=0.0.0.0:9229 --legacy-watch --ignore node_modules index.js",
     "lint": "eslint '**/*.js' --fix --cache",
     "start": "node index.js",
+    "prettier": "./node_modules/prettier/bin-prettier.js src/**/*.js --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,11 +16,11 @@
     "SDK"
   ],
   "author": "dev@wingify.com",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.17.1",
-    "vwo-node-sdk": "^1.0.1"
+    "vwo-node-sdk": "^1.4.2"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

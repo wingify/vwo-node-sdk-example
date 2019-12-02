@@ -1,25 +1,83 @@
 {
+  "sdkKey": "123a456a7890d1ce1111caf1f11111bc",
   "campaigns": [{
+    "goals": {},
+    "variations": [{
+      "id": 1,
+      "name": "full-stack",
+      "changes": {},
+      "weight": 100
+    }],
+    "percentTraffic": 61,
+    "id": 91,
+    "variables": [{
+      "value": 10,
+      "type": "integer",
+      "key": "V1",
+      "id": 1
+    }],
+    "key": "isNewPricingEnabled",
+    "status": "RUNNING",
+    "type": "FEATURE_ROLLOUT"
+  }, {
     "goals": [{
-      "identifier": "CUSTOM_RECOMMENDATION_GOAL",
-      "id": 203,
+      "identifier": "CUSTOM",
+      "id": 409,
       "type": "CUSTOM_GOAL"
     }],
     "variations": [{
-      "id": "1",
-      "name": "Control",
-      "weight": 40
+      "changes": {},
+      "id": 1,
+      "variables": [{
+        "value": 10,
+        "type": "integer",
+        "key": "tshirt-price",
+        "id": 1
+      }],
+      "isFeatureEnabled": false,
+      "weight": 50,
+      "name": "Control"
     }, {
-      "id": "2",
-      "name": "Variation-1",
-      "weight": 60
+      "changes": {},
+      "id": 2,
+      "variables": [{
+        "value": 20,
+        "type": "integer",
+        "key": "tshirt-price",
+        "id": 1
+      }],
+      "isFeatureEnabled": true,
+      "weight": 50,
+      "name": "Variation-1"
     }],
-    "id": 22,
-    "percentTraffic": 90,
-    "key": "NEW_RECOMMENDATION_CAMPAIGN",
+    "id": 92,
+    "percentTraffic": 100,
+    "key": "NewPricing_Tshirt-Test",
+    "status": "RUNNING",
+    "type": "FEATURE_TEST"
+  }, {
+    "goals": [{
+      "identifier": "CUSTOM",
+      "id": 411,
+      "type": "CUSTOM_GOAL"
+    }],
+    "variations": [{
+      "id": 1,
+      "name": "Control",
+      "changes": {},
+      "weight": 50
+    }, {
+      "id": 2,
+      "name": "Variation-1",
+      "changes": {},
+      "weight": 50
+    }],
+    "id": 94,
+    "percentTraffic": 67,
+    "key": "Contact_AB-Test",
     "status": "RUNNING",
     "type": "VISUAL_AB"
   }],
-  "accountId": 123456,
-  "version": 2
+  "accountId": 1220730,
+  "version": 1
 }

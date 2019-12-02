@@ -1,11 +1,17 @@
-const campaignTestKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
-const goalIdentifeir = 'REPLACE_THIS_WITH_CORRECT_VALUE';
-const accountId = 'REPLACE_THIS_WITH_CORRECT_VALUE';
-const sdkKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const accountId = '';
+const sdkKey = '';
+
+const abcampaignKey = '';
+const abCampaigngoalIdentifier = '';
+
+const featureRolloutCampaignKey = '';
+const featureTestCampaignKey = '';
 
 module.exports = {
   accountId,
   sdkKey,
-  campaignTestKey,
-  goalIdentifeir
+  abcampaignKey,
+  abCampaigngoalIdentifier,
+  featureRolloutCampaignKey,
+  featureTestCampaignKey
 };

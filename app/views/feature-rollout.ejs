@@ -1,0 +1,47 @@
+<% include header.ejs%>
+
+<div>
+  <h2 class="center  color-blue">VWO Node SDK Example</h2>
+  <div class="main-container">
+    <div class="left-container">
+      <h2 class="center  color-grey">Settings</h2>
+      <pre><code><%- currentSettingsFile %></code></pre>
+    </div>
+
+    <div class="right-container">
+      <div class="half-containers">
+        <h2 class="center  color-grey">Details</h2>
+
+        <div class="center  margin--top">
+          <div>Campaign key - <strong><%=campaignKey %></strong></div>
+        </div>
+
+        <div class="center  margin--top">
+          <div>userId - <strong><%=userId %></strong></div>
+        </div>
+
+        <div class="center  margin--top">
+          <div>is enabled - <strong><%=isEnabled %></strong></div>
+        </div>
+
+        <div class="center  margin--top">
+          <table>
+            <% for(var i=0; i < featureVariables.length; i++) { %>
+              <tr>
+                <td><%= featureVariables[i].key %></td>
+                <td><%= featureVariables[i].value %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+      <div class="half-containers  center">
+        <button onclick="window.location.reload()">Refresh</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<% include footer.ejs%>
