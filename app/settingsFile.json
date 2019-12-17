@@ -18,7 +18,29 @@
     }],
     "key": "isNewPricingEnabled",
     "status": "RUNNING",
-    "type": "FEATURE_ROLLOUT"
+    "type": "FEATURE_ROLLOUT",
+    "segments": {
+      "and": [
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "a": "wildcard(*123*)"
+                      }
+                  }
+              ]
+          },
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "hello": "regex(world)"
+                      }
+                  }
+              ]
+          }
+      ]
+    }
   }, {
     "goals": [{
       "identifier": "CUSTOM",
@@ -54,7 +76,29 @@
     "percentTraffic": 100,
     "key": "NewPricing_Tshirt-Test",
     "status": "RUNNING",
-    "type": "FEATURE_TEST"
+    "type": "FEATURE_TEST",
+    "segments": {
+      "and": [
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "a": "wildcard(*123*)"
+                      }
+                  }
+              ]
+          },
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "hello": "regex(world)"
+                      }
+                  }
+              ]
+          }
+      ]
+    }
   }, {
     "goals": [{
       "identifier": "CUSTOM",
@@ -76,7 +120,29 @@
     "percentTraffic": 67,
     "key": "Contact_AB-Test",
     "status": "RUNNING",
-    "type": "VISUAL_AB"
+    "type": "VISUAL_AB",
+    "segments": {
+      "and": [
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "a": "wildcard(*123*)"
+                      }
+                  }
+              ]
+          },
+          {
+              "or": [
+                  {
+                      "custom_variable": {
+                          "hello": "regex(world)"
+                      }
+                  }
+              ]
+          }
+      ]
+    }
   }],
   "accountId": 1220730,
   "version": 1

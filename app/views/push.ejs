@@ -13,34 +13,28 @@
         <h2 class="center  color-grey">Details</h2>
 
         <div class="center  margin--top">
-          <div>Campaign key - <strong><%=campaignKey %></strong></div>
+          <div>Tag key - <strong><%=tagKey %></strong></div>
         </div>
 
         <div class="center margin--top">
-          <div>Custom Variables - </div>
-          <pre><code><%= customVariables%></code></pre>
+            <div>Tag value - <strong><%= tagValue%></strong></div>
         </div>
 
         <div class="center  margin--top">
           <div>userId - <strong><%=userId %></strong></div>
         </div>
 
-        <div class="center  margin--top">
-          <div>is enabled - <strong><%=isEnabled %></strong></div>
-        </div>
+        <%if (result) { %>
+            <div class="center  margin--top">
+              <div>Data pushed to server successfully</div>
+            </div>
+        <% } else { %>
+            <div class="center  margin--top">
+                <div>Failed to push data to the server</div>
+            </div>
+        <% } %>
 
-        <div class="center  margin--top">
-          <table>
-            <% for(var i = 0; i < featureVariables.length; i++) { %>
-              <tr>
-                <td><%= featureVariables[i].key %></td>
-                <td><%= featureVariables[i].value %></td>
-              </tr>
-            <% } %>
-          </table>
-        </div>
       </div>
-
       <div class="half-containers  center">
         <button onclick="window.location.reload()">Refresh</button>
       </div>

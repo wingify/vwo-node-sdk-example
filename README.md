@@ -23,6 +23,12 @@ yarn install
 2. Update your app configuration inside `config.js`
 
 ```js
+<<<<<<< HEAD
+const campaignKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const goalIdentifier = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const accountId = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+const sdkKey = 'REPLACE_THIS_WITH_CORRECT_VALUE';
+=======
 const accountId = '';
 const sdkKey = '';
 
@@ -31,6 +37,7 @@ const abCampaigngoalIdentifier = '';
 
 const featureRolloutCampaignKey = '';
 const featureTestCampaignKey = '';
+>>>>>>> e51db512b2c86430df2ae2c4214151c23cdcd4bf
 
 ```
 

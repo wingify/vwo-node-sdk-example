@@ -2,6 +2,7 @@ const express = require('express');
 const vwoHelper = require('./vwo-helper');
 const util = require('./util');
 const assert = require('assert');
+const customVariables = require('./customVariables');
 
 const app = express();
 
@@ -49,13 +50,13 @@ app.get('/feature-rollout', (req, res) => {
   let featureVariables = [];
 
   if (vwoClientInstance) {
-    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId);
+    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
     let strValue, intValue, boolValue, dubValue;
 
-    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId);
-    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId);
-    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId);
-    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId);
+    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, customVariables);
+    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, customVariables);
+    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, customVariables);
+    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, customVariables);
 
     featureVariables = [
       {
@@ -83,6 +84,7 @@ app.get('/feature-rollout', (req, res) => {
     isEnabled,
     campaignKey,
     featureVariables,
+    customVariables: JSON.stringify(customVariables),
     currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
   });
 });
@@ -90,12 +92,12 @@ app.get('/feature-rollout', (req, res) => {
 app.get('/feature-test', (req, res) => {
   const campaignKey = featureTestCampaignKey;
   let userId = req.query.userId || util.getRandomUser();
-  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId);
+  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
 
-  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId);
-  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId);
-  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId);
-  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId);
+  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, customVariables);
+  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, customVariables);
+  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, customVariables);
+  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, customVariables);
   const featureVariables = [
     {
       key: 'str',
@@ -121,6 +123,7 @@ app.get('/feature-test', (req, res) => {
     isEnabled,
     campaignKey,
     featureVariables,
+    customVariables: JSON.stringify(customVariables),
     currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
   });
 });
@@ -135,7 +138,7 @@ app.get('/ab', (req, res) => {
   userId = req.query.userId || util.getRandomUser();
 
   if (vwoClientInstance) {
-    variationName = vwoClientInstance.activate(campaignKey, userId);
+    variationName = vwoClientInstance.activate(campaignKey, userId, customVariables);
 
     if (variationName) {
       isPartOfCampaign = true;
@@ -143,7 +146,7 @@ app.get('/ab', (req, res) => {
       isPartOfCampaign = false;
     }
 
-    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier);
+    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, customVariables);
   }
 
   res.render('ab', {
@@ -153,6 +156,27 @@ app.get('/ab', (req, res) => {
     variationName,
     campaignKey,
     abCampaigngoalIdentifier,
+    customVariables: JSON.stringify(customVariables),
+    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
+  });
+});
+
+app.get('/push', (req, res) => {
+  const campaignKey = featureRolloutCampaignKey;
+  const userId = req.query.userId || util.getRandomUser();
+
+  const tagKey = 'random_tag_key';
+  const tagValue = 'random_tag_value';
+
+  const result = vwoClientInstance.push(tagKey, tagValue, userId);
+
+  res.render('push', {
+    title: `VWO | Node-sdk example`,
+    userId,
+    tagKey,
+    tagValue,
+    result,
+    campaignKey,
     currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
   });
 });
