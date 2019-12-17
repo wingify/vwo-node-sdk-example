@@ -1,4 +1,4 @@
-const vwoSDK = require('../../vwo-node-sdk');
+const vwoSDK = require('vwo-node-sdk');
 
 let userData = {};
 let userIds = [];
