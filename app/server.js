@@ -2,7 +2,6 @@ const express = require('express');
 const vwoHelper = require('./vwo-helper');
 const util = require('./util');
 const assert = require('assert');
-const customVariables = require('./customVariables');
 
 const app = express();
 
@@ -15,7 +14,9 @@ const {
   abcampaignKey,
   abCampaigngoalIdentifier,
   featureRolloutCampaignKey,
-  featureTestCampaignKey
+  featureTestCampaignKey,
+  customVariables,
+  variationTargetingVariables
 } = require('./config');
 
 let currentSettingsFile = {};
@@ -50,13 +51,23 @@ app.get('/feature-rollout', (req, res) => {
   let featureVariables = [];
 
   if (vwoClientInstance) {
-    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
+    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
+      customVariables
+    });
     let strValue, intValue, boolValue, dubValue;
 
-    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, customVariables);
-    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, customVariables);
-    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, customVariables);
-    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, customVariables);
+    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, {
+      customVariables
+    });
+    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, {
+      customVariables
+    });
+    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, {
+      customVariables
+    });
+    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, {
+      customVariables
+    });
 
     featureVariables = [
       {
@@ -92,12 +103,27 @@ app.get('/feature-rollout', (req, res) => {
 app.get('/feature-test', (req, res) => {
   const campaignKey = featureTestCampaignKey;
   let userId = req.query.userId || util.getRandomUser();
-  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
+  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
 
-  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, customVariables);
-  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, customVariables);
-  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, customVariables);
-  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, customVariables);
+  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, {
+    customVariables,
+    variationTargetingVariables
+  });
   const featureVariables = [
     {
       key: 'str',
@@ -138,7 +164,7 @@ app.get('/ab', (req, res) => {
   userId = req.query.userId || util.getRandomUser();
 
   if (vwoClientInstance) {
-    variationName = vwoClientInstance.activate(campaignKey, userId, customVariables);
+    variationName = vwoClientInstance.activate(campaignKey, userId, { customVariables, variationTargetingVariables });
 
     if (variationName) {
       isPartOfCampaign = true;
@@ -146,7 +172,10 @@ app.get('/ab', (req, res) => {
       isPartOfCampaign = false;
     }
 
-    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, customVariables);
+    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, {
+      customVariables,
+      variationTargetingVariables
+    });
   }
 
   res.render('ab', {

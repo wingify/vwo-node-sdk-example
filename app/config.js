@@ -6,6 +6,8 @@ const abCampaigngoalIdentifier = '';
 
 const featureRolloutCampaignKey = '';
 const featureTestCampaignKey = '';
+const customVariables = {};
+const variationTargetingVariables = {};
 
 module.exports = {
   accountId,
@@ -13,5 +15,7 @@ module.exports = {
   abcampaignKey,
   abCampaigngoalIdentifier,
   featureRolloutCampaignKey,
-  featureTestCampaignKey
+  featureTestCampaignKey,
+  customVariables,
+  variationTargetingVariables
 };
