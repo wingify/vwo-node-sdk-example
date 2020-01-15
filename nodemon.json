@@ -1,0 +1,4 @@
+{
+  "ignoreRoot": [".git"],
+  "watch": ["./", "../vwo-node-sdk/"]
+}
