@@ -9,6 +9,8 @@ const featureTestCampaignKey = '';
 const customVariables = {};
 const variationTargetingVariables = {};
 
+const pollTime = 10000;
+
 module.exports = {
   accountId,
   sdkKey,
@@ -17,5 +19,6 @@ module.exports = {
   featureRolloutCampaignKey,
   featureTestCampaignKey,
   customVariables,
+  pollTime,
   variationTargetingVariables
 };

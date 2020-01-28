@@ -13,6 +13,9 @@
       .margin--left {
         margin-left: 20px;
       }
+      .margin-half--left {
+        margin-left: 10px;
+      }
 
       .color-grey {
         color: #777;
@@ -65,8 +68,8 @@
       }
       .left-container {
         flex: 0 1 50%;
-        min-height: 100%;
         max-width: 50%;
+        min-height: 100%;
         margin: 0 10px;
       }
       .right-container {
@@ -84,6 +87,12 @@
         min-height: 50%;
         max-width: 100%;
         overflow: hidden;
+      }
+
+      .left-container.one-quarter, .right-container.one-quarter {
+        flex: 0 1 25%;
+        max-width: 25%;
+        display: block;
       }
 
     </style>

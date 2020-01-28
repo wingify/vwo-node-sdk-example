@@ -2,26 +2,22 @@ const express = require('express');
 const vwoHelper = require('./vwo-helper');
 const util = require('./util');
 const assert = require('assert');
+const AbController = require('./controllers/AbController');
+const FeatureRolloutController = require('./controllers/FeatureRolloutController');
+const FeatureTestController = require('./controllers/FeatureTestController');
+const PushController = require('./controllers/PushController');
+const JsSdkController = require('./controllers/JsSdkController');
+
+const { accountId, sdkKey, pollTime } = require('./config');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', './app/views');
-
-const {
-  accountId,
-  sdkKey,
-  abcampaignKey,
-  abCampaigngoalIdentifier,
-  featureRolloutCampaignKey,
-  featureTestCampaignKey,
-  customVariables,
-  variationTargetingVariables
-} = require('./config');
+app.use('/public', express.static('public'));
+app.use('/node_modules', express.static('node_modules'));
 
 let currentSettingsFile = {};
-let vwoClientInstance;
-const pollTime = 10000;
 
 function pollSettingsFile() {
   vwoHelper
@@ -32,7 +28,8 @@ function pollSettingsFile() {
         assert.deepEqual(currentSettingsFile, latestSettingsFile);
       } catch (err) {
         currentSettingsFile = latestSettingsFile;
-        vwoClientInstance = vwoHelper.initVWOSdk(currentSettingsFile);
+        vwoHelper.currentSettingsFile = currentSettingsFile;
+        vwoHelper.initVWOSdk(currentSettingsFile);
       }
     })
     .catch(err => {
@@ -43,172 +40,11 @@ function pollSettingsFile() {
 pollSettingsFile();
 setInterval(pollSettingsFile, pollTime);
 
-app.get('/feature-rollout', (req, res) => {
-  const campaignKey = featureRolloutCampaignKey;
-  let userId = req.query.userId || util.getRandomUser();
-
-  let isEnabled;
-  let featureVariables = [];
-
-  if (vwoClientInstance) {
-    isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
-      customVariables
-    });
-    let strValue, intValue, boolValue, dubValue;
-
-    strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, {
-      customVariables
-    });
-    intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, {
-      customVariables
-    });
-    boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, {
-      customVariables
-    });
-    dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, {
-      customVariables
-    });
-
-    featureVariables = [
-      {
-        key: 'str',
-        value: strValue
-      },
-      {
-        key: 'int',
-        value: intValue
-      },
-      {
-        key: 'bool',
-        value: boolValue
-      },
-      {
-        key: 'dub',
-        value: dubValue
-      }
-    ];
-  }
-
-  res.render('feature-rollout', {
-    title: `VWO | Node-sdk example`,
-    userId,
-    isEnabled,
-    campaignKey,
-    featureVariables,
-    customVariables: JSON.stringify(customVariables),
-    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
-  });
-});
-
-app.get('/feature-test', (req, res) => {
-  const campaignKey = featureTestCampaignKey;
-  let userId = req.query.userId || util.getRandomUser();
-  let isEnabled = vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
-    customVariables,
-    variationTargetingVariables
-  });
-
-  let strValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'str', userId, {
-    customVariables,
-    variationTargetingVariables
-  });
-  let intValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'int', userId, {
-    customVariables,
-    variationTargetingVariables
-  });
-  let boolValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'bool', userId, {
-    customVariables,
-    variationTargetingVariables
-  });
-  let dubValue = vwoClientInstance.getFeatureVariableValue(campaignKey, 'dub', userId, {
-    customVariables,
-    variationTargetingVariables
-  });
-  const featureVariables = [
-    {
-      key: 'str',
-      value: strValue
-    },
-    {
-      key: 'int',
-      value: intValue
-    },
-    {
-      key: 'bool',
-      value: boolValue
-    },
-    {
-      key: 'dub',
-      value: dubValue
-    }
-  ];
-
-  res.render('feature-test', {
-    title: `VWO | Node-sdk example`,
-    userId,
-    isEnabled,
-    campaignKey,
-    featureVariables,
-    customVariables: JSON.stringify(customVariables),
-    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
-  });
-});
-
-// curl "http://127.0.0.1:3000/ab?userId="
-app.get('/ab', (req, res) => {
-  let campaignKey = abcampaignKey;
-  let variationName;
-  let userId;
-  let isPartOfCampaign;
-
-  userId = req.query.userId || util.getRandomUser();
-
-  if (vwoClientInstance) {
-    variationName = vwoClientInstance.activate(campaignKey, userId, { customVariables, variationTargetingVariables });
-
-    if (variationName) {
-      isPartOfCampaign = true;
-    } else {
-      isPartOfCampaign = false;
-    }
-
-    vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, {
-      customVariables,
-      variationTargetingVariables
-    });
-  }
-
-  res.render('ab', {
-    title: `VWO | Node-sdk example | ${variationName}`,
-    userId,
-    isPartOfCampaign,
-    variationName,
-    campaignKey,
-    abCampaigngoalIdentifier,
-    customVariables: JSON.stringify(customVariables),
-    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
-  });
-});
-
-app.get('/push', (req, res) => {
-  const campaignKey = featureRolloutCampaignKey;
-  const userId = req.query.userId || util.getRandomUser();
-
-  const tagKey = 'random_tag_key';
-  const tagValue = 'random_tag_value';
-
-  const result = vwoClientInstance.push(tagKey, tagValue, userId);
-
-  res.render('push', {
-    title: `VWO | Node-sdk example`,
-    userId,
-    tagKey,
-    tagValue,
-    result,
-    campaignKey,
-    currentSettingsFile: util.prettyPrint(currentSettingsFile, null, 2)
-  });
-});
+app.get('/feature-rollout', FeatureRolloutController);
+app.get('/feature-test', FeatureTestController);
+app.get('/ab', AbController);
+app.get('/push', PushController);
+app.get('/js-sdk', JsSdkController);
 
 app.get('/', (_req, res) => {
   res.render('index', {
@@ -217,4 +53,4 @@ app.get('/', (_req, res) => {
   });
 });
 
-app.listen(3000, function() {});
+app.listen(4000, () => {});

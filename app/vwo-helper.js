@@ -60,25 +60,24 @@ const logging = {
   haveColoredLogs: true // true by default when isDevelopment:true
 };
 
-function getSettingsFile(accountId, sdkKey, config) {
-  // Only for debugging and development
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+const vwoHelper = {
+  getSettingsFile: function(accountId, sdkKey, config) {
+    // Only for debugging and development
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-  return vwoSDK.getSettingsFile(accountId, sdkKey, config);
-}
+    return vwoSDK.getSettingsFile(accountId, sdkKey, config);
+  },
+  initVWOSdk: function(settingsFile) {
+    let vwoClientInstance = vwoSDK.launch({
+      isDevelopmentMode: false,
+      settingsFile,
+      userStorageService,
+      logging
+    });
 
-function initVWOSdk(settingsFile) {
-  let vwoClientInstance = vwoSDK.launch({
-    isDevelopmentMode: false,
-    settingsFile,
-    userStorageService,
-    logging
-  });
-
-  return vwoClientInstance;
-}
-
-module.exports = {
-  getSettingsFile,
-  initVWOSdk
+    vwoHelper.vwoClientInstance = vwoClientInstance;
+    return vwoClientInstance;
+  }
 };
+
+module.exports = vwoHelper;
