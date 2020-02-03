@@ -3436,10 +3436,10 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vwo-node-sdk@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-1.7.0.tgz#bc08716ae46bdee5a37e977cf5cda58600139b49"
-  integrity sha512-WeZLw/VyY3/hc/VaF4Ww2hk89LY/n79VzMN4vHKzpdq4l0zf0xia/woTZjDs4GXLW7ngI66kWAWEM3l3z/MuGA==
+vwo-node-sdk@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-1.7.2.tgz#188bd0e7e6940b2396d7a15bbd47d79103a033a7"
+  integrity sha512-qi9BK9xH9Ed2zuJ6tC6CvA0fjbvyDaBIPlMiCvCOnguTXqfCU3TKxRFBczNWMxgAwpfkhtoJ5sqmqrXxsWfxeQ==
   dependencies:
     lodash.clonedeep "^4.5.0"
     murmurhash "^0.0.2"
