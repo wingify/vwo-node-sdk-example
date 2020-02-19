@@ -1,10 +1,10 @@
 const util = require('../util');
 const vwoHelper = require('../vwo-helper');
 
-const { abcampaignKey, abCampaigngoalIdentifier, customVariables } = require('../config');
+const { abCampaignKey, abCampaigngoalIdentifier, customVariables, variationTargetingVariables } = require('../config');
 
 function AbController(req, res) {
-  let campaignKey = abcampaignKey;
+  let campaignKey = abCampaignKey;
   let variationName;
   let userId;
   let isPartOfCampaign;
@@ -12,7 +12,10 @@ function AbController(req, res) {
   userId = req.query.userId || util.getRandomUser();
 
   if (vwoHelper.vwoClientInstance) {
-    variationName = vwoHelper.vwoClientInstance.activate(campaignKey, userId, customVariables);
+    variationName = vwoHelper.vwoClientInstance.activate(campaignKey, userId, {
+      customVariables,
+      variationTargetingVariables
+    });
 
     if (variationName) {
       isPartOfCampaign = true;
@@ -20,7 +23,10 @@ function AbController(req, res) {
       isPartOfCampaign = false;
     }
 
-    vwoHelper.vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, customVariables);
+    vwoHelper.vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, {
+      customVariables,
+      variationTargetingVariables
+    });
   }
 
   res.render('ab', {
@@ -31,6 +37,7 @@ function AbController(req, res) {
     campaignKey,
     abCampaigngoalIdentifier,
     customVariables: JSON.stringify(customVariables),
+    variationTargetingVariables: JSON.stringify(variationTargetingVariables),
     currentSettingsFile: util.prettyPrint(vwoHelper.currentSettingsFile, null, 2)
   });
 }

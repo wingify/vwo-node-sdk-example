@@ -1,7 +1,7 @@
 const util = require('../util');
 const vwoHelper = require('../vwo-helper');
 
-const { featureTestCampaignKey, customVariables } = require('../config');
+const { featureTestCampaignKey, customVariables, variationTargetingVariables } = require('../config');
 
 function FeatureTestController(req, res) {
   const campaignKey = featureTestCampaignKey;
@@ -11,12 +11,27 @@ function FeatureTestController(req, res) {
   let doubleVariable;
 
   let userId = req.query.userId || util.getRandomUser();
-  let isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
+  let isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
 
-  let strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId);
-  let intValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, intVariable, userId);
-  let boolValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, boolVariable, userId);
-  let dubValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, doubleVariable, userId);
+  let strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let intValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, intVariable, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let boolValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, boolVariable, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
+  let dubValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, doubleVariable, userId, {
+    customVariables,
+    variationTargetingVariables
+  });
   const featureVariables = [
     {
       key: stringVariable,
@@ -43,6 +58,7 @@ function FeatureTestController(req, res) {
     campaignKey,
     featureVariables,
     customVariables: JSON.stringify(customVariables),
+    variationTargetingVariables: JSON.stringify(variationTargetingVariables),
     currentSettingsFile: util.prettyPrint(vwoHelper.currentSettingsFile, null, 2)
   });
 }

@@ -15,13 +15,21 @@ function FeatureRolloutController(req, res) {
   let doubleVariable;
 
   if (vwoHelper.vwoClientInstance) {
-    isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, customVariables);
+    isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, { customVariables });
     let strValue, intValue, boolValue, dubValue;
 
-    strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId);
-    intValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, intVariable, userId);
-    boolValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, boolVariable, userId);
-    dubValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, doubleVariable, userId);
+    strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId, {
+      customVariables
+    });
+    intValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, intVariable, userId, {
+      customVariables
+    });
+    boolValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, boolVariable, userId, {
+      customVariables
+    });
+    dubValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, doubleVariable, userId, {
+      customVariables
+    });
 
     featureVariables = [
       {
