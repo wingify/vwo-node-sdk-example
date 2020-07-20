@@ -1,7 +1,7 @@
 const accountId = '';
 const sdkKey = '';
 
-const abcampaignKey = '';
+const abCampaignKey = '';
 const abCampaigngoalIdentifier = '';
 
 const featureRolloutCampaignKey = '';
@@ -9,16 +9,21 @@ const featureTestCampaignKey = '';
 const customVariables = {};
 const variationTargetingVariables = {};
 
+const customDimensionKey = '';
+const customDimensionValue = '';
+
 const pollTime = 10000;
 
 module.exports = {
   accountId,
   sdkKey,
-  abcampaignKey,
+  abCampaignKey,
   abCampaigngoalIdentifier,
   featureRolloutCampaignKey,
   featureTestCampaignKey,
   customVariables,
   pollTime,
-  variationTargetingVariables
+  variationTargetingVariables,
+  customDimensionKey,
+  customDimensionValue
 };
