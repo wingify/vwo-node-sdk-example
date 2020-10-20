@@ -54,3 +54,11 @@ app.get('/', (_req, res) => {
 });
 
 app.listen(4000, () => {});
+
+process.on('SIGINT', async () => {
+  console.log('SIGINT signal received.');
+  vwoHelper.vwoClientInstance.flushEvents().then(data => {
+    console.log('data', data)
+    process.exit(0)
+  });
+});
