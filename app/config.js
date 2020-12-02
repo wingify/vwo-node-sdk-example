@@ -12,8 +12,6 @@ const variationTargetingVariables = {};
 const customDimensionKey = '';
 const customDimensionValue = '';
 
-const pollTime = 10000;
-
 module.exports = {
   accountId,
   sdkKey,
@@ -22,7 +20,6 @@ module.exports = {
   featureRolloutCampaignKey,
   featureTestCampaignKey,
   customVariables,
-  pollTime,
   variationTargetingVariables,
   customDimensionKey,
   customDimensionValue

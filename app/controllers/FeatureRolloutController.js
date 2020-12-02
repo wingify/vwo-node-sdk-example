@@ -58,7 +58,7 @@ function FeatureRolloutController(req, res) {
     campaignKey,
     featureVariables,
     customVariables: JSON.stringify(customVariables),
-    currentSettingsFile: util.prettyPrint(vwoHelper.currentSettingsFile, null, 2)
+    currentSettingsFile: util.prettyPrint(vwoHelper.vwoClientInstance.SettingsFileManager.getSettingsFile(), null, 2)
   });
 }
 

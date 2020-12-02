@@ -73,6 +73,8 @@ const vwoHelper = {
       settingsFile,
       userStorageService,
       logging
+      // pollingInterval: 5000,
+      // sdkKey: sdkKey
     });
 
     vwoHelper.vwoClientInstance = vwoClientInstance;

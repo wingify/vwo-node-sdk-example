@@ -1,4 +1,15 @@
 {
-  "ignoreRoot": [".git"],
-  "watch": ["./", "../vwo-node-sdk/"]
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "watch": [
+    "./*.js",
+    "./**/*.js",
+    "../vwo-node-sdk/lib"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json"
 }

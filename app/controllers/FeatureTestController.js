@@ -59,7 +59,7 @@ function FeatureTestController(req, res) {
     featureVariables,
     customVariables: JSON.stringify(customVariables),
     variationTargetingVariables: JSON.stringify(variationTargetingVariables),
-    currentSettingsFile: util.prettyPrint(vwoHelper.currentSettingsFile, null, 2)
+    currentSettingsFile: util.prettyPrint(vwoHelper.vwoClientInstance.SettingsFileManager.getSettingsFile(), null, 2)
   });
 }
 
