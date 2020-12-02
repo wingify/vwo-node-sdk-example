@@ -61,7 +61,7 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-app.listen(4000, () => {});
+app.listen(process.env.PORT || 4000, () => {});
 
 // UNCOMMENT below lines in case of using event batching for demo purpose
 
