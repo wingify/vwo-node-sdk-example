@@ -29,14 +29,22 @@ const userStorageService = {
     return data;
   },
   set: userStorageData => {
+    const { campaignKey, userId } = userStorageData;
     // Persist user profile based on userStorageData
 
     // Example code which saves data in object. This object will reset on server restart.
-    if (userIds.indexOf(userStorageData.userId) === -1) {
-      userData[userStorageData.campaignKey] = userData[userStorageData.campaignKey] || [];
-      userData[userStorageData.campaignKey].push(userStorageData);
+    if (userIds.indexOf(userId) === -1) {
+      userData[campaignKey] = userData[campaignKey] || [];
+      userData[campaignKey].push(userStorageData);
 
-      userIds.push(userStorageData.userId);
+      userIds.push(userId);
+    } else {
+      for (let i = 0; i < userData[campaignKey].length; i++) {
+        if (userId === userData[campaignKey][i].userId) {
+          userData[campaignKey][i] = userStorageData;
+          break;
+        }
+      }
     }
   }
 };
@@ -73,6 +81,8 @@ const vwoHelper = {
       settingsFile,
       userStorageService,
       logging
+      // pollingInterval: 5000,
+      // sdkKey: sdkKey
     });
 
     vwoHelper.vwoClientInstance = vwoClientInstance;

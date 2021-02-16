@@ -13,6 +13,7 @@ const customDimensionKey = '';
 const customDimensionValue = '';
 
 const pollTime = 10000;
+const webhookAuthKey = '';
 
 module.exports = {
   accountId,
@@ -25,5 +26,6 @@ module.exports = {
   pollTime,
   variationTargetingVariables,
   customDimensionKey,
-  customDimensionValue
+  customDimensionValue,
+  webhookAuthKey
 };
