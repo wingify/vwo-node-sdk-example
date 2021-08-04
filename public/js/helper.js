@@ -15,13 +15,42 @@ const tagValue = '';
 
 const customVariables = {};
 
+const userStorageService = {
+  getSettings: () => {
+    const settingsExpiry = localStorage.getItem('vwo-settings-expiry');
+    // Check if there is any expiry set
+    if (settingsExpiry) {
+      const currentTimeStamp = +new Date();
+      // calculate the timedifference
+      const timeDifference = currentTimeStamp - settingsExpiry;
+
+      // if timeleapsed is greater than 1 minute
+      if (timeDifference > (60 * 1000)) { // 1 min = 60 * 1000 = 60000 ms
+        // remove the stale settings and return null
+        localStorage.removeItem('vwo-settings');
+        return null;
+      } else {
+        return localStorage.getItem('vwo-settings');
+      }
+    } else {
+      return localStorage.getItem('vwo-settings');
+    }
+  },
+  setSettings: (settings) => {
+    localStorage.setItem('vwo-settings-expiry', +new Date()); // store current timestampp
+    localStorage.setItem('vwo-settings', settings);
+  }
+}
+
 screenLog.init();
 
 console.warn('Click on buttons above and the logs will be printed here. Try it!');
+
 const serverProvidedSettingsFile = ( document.querySelector('#server-settings-file') && document.querySelector('#server-settings-file').innerHTML) || '';
 let settingsFile;// = JSON.parse(serverProvidedSettingsFile);
+
 if (!settingsFile) {
-  vwoSdk.getSettingsFile(accountId, sdkKey).then(data => {
+  vwoSdk.getSettingsFile(accountId, sdkKey, userStorageService).then(data => {
     settingsFile = data;
     onSettingsFileFetched();
   });
@@ -33,13 +62,13 @@ function onSettingsFileFetched() {
   const userId = document.querySelector('#server-user-id').innerHTML;
 
   const _vwoSdk = vwoSdk.launch({
-    isDevelopmentMode: false,
+    // isDevelopmentMode: true,
     settingsFile,
     logging: {
     //   log: function(level, message) {
     //     console.log(level, message);
     //   },
-    level: vwoSdk.logging.LogLevelEnum.DEBUG
+      level: vwoSdk.logging.LogLevelEnum.DEBUG
     }
   });
 

@@ -3161,13 +3161,10 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-superstruct@^0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.8.3.tgz#fb4d8901aca3bf9f79afab1bbab7a7f335cc4ef2"
-  integrity sha512-LbtbFpktW1FcwxVIJlxdk7bCyBq/GzOx2FSFLRLTUhWIA1gHkYPIl3aXRG5mBdGZtnPNT6t+4eEcLDCMOuBHww==
-  dependencies:
-    kind-of "^6.0.2"
-    tiny-invariant "^1.0.6"
+superstruct@^0.10.12:
+  version "0.10.13"
+  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.10.13.tgz#705535a5598ff231bd976601a7b6b534a71a821b"
+  integrity sha512-W4SitSZ9MOyMPbHreoZVEneSZyPEeNGbdfJo/7FkJyRs/M3wQRFzq+t3S/NBwlrFSWdx1ONLjLb9pB+UKe4IqQ==
 
 supports-color@^2.0.0:
   version "2.0.0"
@@ -3224,11 +3221,6 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
-
-tiny-invariant@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
-  integrity sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -3429,13 +3421,13 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vwo-node-sdk@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-1.10.0.tgz#7af478960162a1e6e642f4b5caabb84c6345676c"
-  integrity sha512-xhcWuCXBJQUqXQyzapDGWCZpEvbibGYmnzKxoJzeErCftQlSgkiNUBU2KRKmGhyP3ZufsIakgUvxSJwetzZHXQ==
+vwo-node-sdk@^1.20.0:
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/vwo-node-sdk/-/vwo-node-sdk-1.20.0.tgz#b6d12d8c704a6a4f996094b48cb642a1a92ceaa4"
+  integrity sha512-Oazd8qUOSzd1TPcNhER0ZqPEPdUQy6XxbRZAzHWgk/qIno5pp5A5RcfTHH5vEDU1vaoFHfgPC6ysYw1fDZ0AVQ==
   dependencies:
     murmurhash "^0.0.2"
-    superstruct "^0.8.3"
+    superstruct "^0.10.12"
     uuid "^3.3.2"
 
 which@^1.2.10, which@^1.2.9:
