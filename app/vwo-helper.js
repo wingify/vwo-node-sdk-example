@@ -32,10 +32,11 @@ const userStorageService = {
     const { campaignKey, userId } = userStorageData;
     // Persist user profile based on userStorageData
 
+    userData[campaignKey] = userData[campaignKey] || [];
+    userData[campaignKey].push(userStorageData);
+
     // Example code which saves data in object. This object will reset on server restart.
     if (userIds.indexOf(userId) === -1) {
-      userData[campaignKey] = userData[campaignKey] || [];
-      userData[campaignKey].push(userStorageData);
 
       userIds.push(userId);
     } else {
