@@ -10,10 +10,15 @@ function FeatureTestController(req, res) {
   let boolVariable;
   let doubleVariable;
 
+  const userAgent = req.headers['user-agent']; //optional parameter 
+  const userIpAddress = req.ip; //optional parameter 
+
   let userId = req.query.userId || util.getRandomUser();
   let isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, {
     customVariables,
-    variationTargetingVariables
+    variationTargetingVariables,
+    userAgent,
+    userIpAddress
   });
 
   let strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId, {

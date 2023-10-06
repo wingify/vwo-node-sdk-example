@@ -10,11 +10,16 @@ function AbController(req, res) {
   let isPartOfCampaign;
 
   userId = req.query.userId || util.getRandomUser();
+  
+  const userAgent = req.headers['user-agent']; //optional parameter to Get the User-Agent header from the request
+  const userIpAddress = req.ip; //optional parameter to Get the client's IP address
 
   if (vwoHelper.vwoClientInstance) {
     variationName = vwoHelper.vwoClientInstance.activate(campaignKey, userId, {
       customVariables,
-      variationTargetingVariables
+      variationTargetingVariables,
+      userAgent,
+      userIpAddress
     });
 
     if (variationName) {
@@ -25,7 +30,9 @@ function AbController(req, res) {
 
     vwoHelper.vwoClientInstance.track(campaignKey, userId, abCampaigngoalIdentifier, {
       customVariables,
-      variationTargetingVariables
+      variationTargetingVariables,
+      userAgent,
+      userIpAddress
     });
   }
 

@@ -7,6 +7,9 @@ function FeatureRolloutController(req, res) {
   const campaignKey = featureRolloutCampaignKey;
   let userId = req.query.userId || util.getRandomUser();
 
+  const userAgent = req.headers['user-agent']; //optional parameter 
+  const userIpAddress = req.ip; //optional parameter 
+
   let isEnabled;
   let featureVariables = [];
   let stringVariable;
@@ -15,7 +18,7 @@ function FeatureRolloutController(req, res) {
   let doubleVariable;
 
   if (vwoHelper.vwoClientInstance) {
-    isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, { customVariables });
+    isEnabled = vwoHelper.vwoClientInstance.isFeatureEnabled(campaignKey, userId, { customVariables, userAgent, userIpAddress });
     let strValue, intValue, boolValue, dubValue;
 
     strValue = vwoHelper.vwoClientInstance.getFeatureVariableValue(campaignKey, stringVariable, userId, {
